@@ -11,7 +11,10 @@ module.exports = {
             name: 'products',
             filename: 'remoteEntry.js',
             exposes: {
-                './ProductsIndex': './src/index',
+                // bootstrap is exporting mount function
+                // and therefore we need to change index
+                // to bootstrap.
+                './ProductsIndex': './src/bootstrap', 
             },
             shared: ['faker']
         }),
