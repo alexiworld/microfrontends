@@ -41,4 +41,10 @@ Push code (quick test)
 Set up the webpack production config
 Set up the CI/CD pipeline (executed through github)
 
-
+Workflow for Deploying Container
+--------------------------------
+Whenever code is pushed to the master/main branch and this commit contains a change to the 'container' folder
+Change into the container folder
+Install dependencies
+Create a production build using webpack
+Upload the result to AWS S3
