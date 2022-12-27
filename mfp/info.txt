@@ -1,0 +1,10 @@
+StephenGrider in GitHub
+mfe project git@github.com:StephenGrider/mfe.git
+
+You have the project locally created
+You create a github project
+And, now you need to link your local project with github project:
+git remote add origin git@github.com:StephenGrider/mfe.git
+
+And, then you push your local changes to the remote repository:
+git push origin master
