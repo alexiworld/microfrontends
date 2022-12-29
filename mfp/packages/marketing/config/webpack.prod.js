@@ -6,7 +6,10 @@ const commonConfig = require('./webpack.common');
 const prodConfig = {
     mode: 'production',
     output: {
-        filename: '[name][contenthash].js'
+        filename: '[name][contenthash].js',
+        // Settting publicPath so marketing's remoteEntry.js 
+        // can successfully reference other files.
+        publicPath: '/marketing/latest/'
     },
     plugins: [
         new ModuleFederationPlugin({
