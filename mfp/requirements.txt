@@ -48,3 +48,43 @@ Change into the container folder
 Install dependencies
 Create a production build using webpack
 Upload the result to AWS S3
+
+Routing Requirements
+--------------------
+1. Both the Container + Individual SubApps need routing features
+2. Sub-apps might need to add in new pages/routes all the time
+
+   This requirement for our mfp would translate in:
+
+   Container: Container's router will be used to decide which microfrontend to show
+   /          -> Marketing
+   /pricing   -> Marketing
+   /auth      -> Auth
+   /dashboard -> Dashboard
+
+   Marketing: Marketing's router used to decide which page to show
+   /        -> Landing
+   /pricing -> Pricing
+
+3. We might need to show two or more microfrontends at the same time
+
+   Container: Container's routing will be used to decide which microfrontend to show
+   / -> Marketing + Pricing
+
+4. We want to use off-the-shelf routing solutions
+5. We need navigation features for sub-apps in both hosted mode and in isolation
+6. If different apps need to communicate information about routing, it should be done in as generic a fashion as possible
+
+
+Routing libraries decide what content to show on the screen
+History -> Object to get and set the current path the user is visiting
+Router -> Shows different content based on the current path
+Browser History -> Look at the path portion of the url (everything afer the domain) to figure out what the current path is
+e.g. http://app.com/marketing/pricing . The router will get /marketing/pricing and decide what to show on the screen.
+Hash History -> Look at everything after the '#' in the URL to figure out the current path
+e.g. http://app.com#/marketing/pricing. The router will get /marketing/pricing. We are not going to use this in our project.
+Memory or Abstract History -> Keep track of the current path in memory.
+Typical approach would be to use Browser History inside the Container, and Memory History inside the apps. This will prevent racing problems (big troubles) that might arise if container and other MFE use Browser History.
+
+
+
