@@ -12,8 +12,11 @@ export default () => {
 
     // useEffect ensures the code is executed only once, 
     // when the component shows up.
+    // in 97. Container to Child Communication, the trainer
+    // suggests to add an empty dependencies [] to useEffect
+    // function to limit lambda function to be called only once.
     useEffect(() => {
-        mount(ref.current, {
+        const { onParentNavigate } = mount(ref.current, {
             // restructure (or project) property from
             // location object and at the same time
             // rename it to nextPath. {pathname} is to
@@ -31,7 +34,9 @@ export default () => {
                 }
             }
         });
-    });
+
+        history.listen(onParentNavigate);
+    }, []);
 
     return <div ref={ref} />;
 }
