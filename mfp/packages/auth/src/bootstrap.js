@@ -4,12 +4,14 @@ import { createMemoryHistory, createBrowserHistory } from 'history';
 import App from './App';
 
 // Mount function to start up the app
-const mount = (el, { onNavigate, defaultHistory }) => {
+const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
     // Use browser history for development mode when running
     // marketing app separately and outside of the container.
     // if we are not getting default history (see dev mode
     // calling mount below) we gonna create a memory history.
-    const history = defaultHistory || createMemoryHistory();
+    const history = defaultHistory || createMemoryHistory({
+        initialEntries: [initialPath]
+    });
 
     if (onNavigate) {
         history.listen(onNavigate);
@@ -24,7 +26,6 @@ const mount = (el, { onNavigate, defaultHistory }) => {
             // prevent infinite loops between marketing app and 
             // container by inspecting the pathname
             const { pathname } = history.location;
-            console.log(nextPathname);
             if (pathname !== nextPathname) {
                 history.push(nextPathname);
             }

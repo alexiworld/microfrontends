@@ -17,6 +17,10 @@ export default () => {
     // function to limit lambda function to be called only once.
     useEffect(() => {
         const { onParentNavigate } = mount(ref.current, {
+            // Fix the double click on Login button issue by
+            // passing the initial path to the auth app's
+            // mount function.
+            initialPath: history.location.pathname,
             // restructure (or project) property from
             // location object and at the same time
             // rename it to nextPath. {pathname} is to
