@@ -1,5 +1,6 @@
 import { mount } from 'marketing/MarketingApp';
 import React, {useRef, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default () => {
     // The approach with useRef, useEffect, mount can
@@ -7,6 +8,7 @@ export default () => {
     // framework can render itself in some HTML element.
 
     const ref = useRef(null);
+    const history = useHistory();
 
     // useEffect ensures the code is executed only once, 
     // when the component shows up.
@@ -17,7 +19,7 @@ export default () => {
             // rename it to nextPath. {pathname} is to
             // project, and :nextPathname is to rename it.
             onNavigate: ({pathname: nextPathname}) => {
-                console.log(nextPathname);
+                history.push(nextPathname);
             }
         });
     });
