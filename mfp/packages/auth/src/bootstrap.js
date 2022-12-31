@@ -24,6 +24,7 @@ const mount = (el, { onNavigate, defaultHistory }) => {
             // prevent infinite loops between marketing app and 
             // container by inspecting the pathname
             const { pathname } = history.location;
+            console.log(nextPathname);
             if (pathname !== nextPathname) {
                 history.push(nextPathname);
             }
