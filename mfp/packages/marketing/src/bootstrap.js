@@ -14,8 +14,8 @@ const mount = (el, { onNavigate }) => {
     ReactDOM.render(<App history={history}/>, el);
 
     return {
-        onParentNavigate() {
-            console.log('Container just navigated!');
+        onParentNavigate(location) {
+            console.log(location);
         }
     };
 };
