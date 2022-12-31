@@ -11,7 +11,11 @@ export default () => {
     // useEffect ensures the code is executed only once, 
     // when the component shows up.
     useEffect(() => {
-        mount(ref.current);
+        mount(ref.current, {
+            onNavigate: () => {
+                console.log('The container noticed navigation in Marketing');
+            }
+        });
     });
 
     return <div ref={ref} />;
