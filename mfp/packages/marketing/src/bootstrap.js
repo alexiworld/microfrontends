@@ -14,8 +14,15 @@ const mount = (el, { onNavigate }) => {
     ReactDOM.render(<App history={history}/>, el);
 
     return {
-        onParentNavigate(location) {
-            console.log(location);
+        // restructure location object (project 'pathname' 
+        // property) and rename pathname to nextPathname
+        onParentNavigate({ pathname: nextPathname }) {
+            // prevent infinite loops between marketing app and 
+            // container by inspecting the pathname
+            const { pathname } = history.location;
+            if (pathname !== nextPathname) {
+                history.push(nextPathname);
+            }
         }
     };
 };
