@@ -12,8 +12,8 @@ export default () => {
     // when the component shows up.
     useEffect(() => {
         mount(ref.current, {
-            onNavigate: () => {
-                console.log('The container noticed navigation in Marketing');
+            onNavigate: (location) => {
+                console.log(location);
             }
         });
     });
