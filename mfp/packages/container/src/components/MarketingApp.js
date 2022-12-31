@@ -12,8 +12,12 @@ export default () => {
     // when the component shows up.
     useEffect(() => {
         mount(ref.current, {
-            onNavigate: (location) => {
-                console.log(location);
+            // restructure (or project) property from
+            // location object and at the same time
+            // rename it to nextPath. {pathname} is to
+            // project, and :nextPathname is to rename it.
+            onNavigate: ({pathname: nextPathname}) => {
+                console.log(nextPathname);
             }
         });
     });
