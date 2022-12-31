@@ -7,7 +7,7 @@ const prodConfig = {
     mode: 'production',
     output: {
         filename: '[name][contenthash].js',
-        // Settting publicPath so marketing's remoteEntry.js 
+        // Settting publicPath so auth's remoteEntry.js 
         // can successfully reference other files.
         publicPath: '/auth/latest/'
     },
