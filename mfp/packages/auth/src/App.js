@@ -25,13 +25,17 @@ const generateClassName = createGenerateClassName({
 // Do not miss {} around history. Otherwise, you can expect 
 // very weird error related to the history property, one that 
 // is difficult to understand.
-export default ({history}) => {
+export default ({history, onSignIn }) => {
     return <div>
         <StylesProvider generateClassName={generateClassName}>
             <Router history={history}>
                 <Switch>
-                    <Route path="/auth/signin" component={Signin}/>
-                    <Route path="/auth/signup" component={Signup}/>
+                    <Route path="/auth/signin" >
+                        <Signin onSignIn={ onSignIn }/>
+                    </Route>
+                    <Route path="/auth/signup">
+                        <Signup onSignIn={ onSignIn }/>
+                    </Route>
                 </Switch>
             </Router>
         </StylesProvider>

@@ -4,7 +4,7 @@ import { createMemoryHistory, createBrowserHistory } from 'history';
 import App from './App';
 
 // Mount function to start up the app
-const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
+const mount = (el, { onSignIn, onNavigate, defaultHistory, initialPath }) => {
     // Use browser history for development mode when running
     // marketing app separately and outside of the container.
     // if we are not getting default history (see dev mode
@@ -17,7 +17,7 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
         history.listen(onNavigate);
     }
 
-    ReactDOM.render(<App history={history}/>, el);
+    ReactDOM.render(<App onSignIn={onSignIn} history={history}/>, el);
 
     return {
         // restructure location object (project 'pathname' 
