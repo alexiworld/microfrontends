@@ -2,7 +2,7 @@ import { mount } from 'auth/AuthApp';
 import React, {useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-export default () => {
+export default ({ onSignIn }) => {
     // The approach with useRef, useEffect, mount can
     // be used with any other framework as long that
     // framework can render itself in some HTML element.
@@ -38,7 +38,7 @@ export default () => {
                 }
             },
             onSignIn: () => {
-                console.log('User signed in');
+                onSignIn(); // call the parameter being passed from outside
             }
         });
 
