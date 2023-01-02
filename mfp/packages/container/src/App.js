@@ -6,6 +6,7 @@ import Progress from './components/Progress';
 
 const MarketingLazy = lazy(() =>  import('./components/MarketingApp'));
 const AuthLazy = lazy(() => import('./components/AuthApp'));
+const DashboardLazy = lazy(() => import('./components/DashboardApp'));
 
 // To make material-ui generate truly randombly styles for
 // different app. Prior to this the problem in production
@@ -30,6 +31,9 @@ export default () => {
     // Note placing <BrowserRouter></BrowserRouter> in
     // (); is very important to prevent you from seeing 
     // some weird export error in the browser console.
+
+    // '/dashboard' must be inserted before the general
+    // '/' to give it a chance to be processed.
     return (
         <StylesProvider generateClassName={generateClassName}>
             <BrowserRouter>
@@ -40,6 +44,7 @@ export default () => {
                         <Route path="/auth">
                             <AuthLazy onSignIn={() => setIsSignedIn(true)}/>
                         </Route>
+                        <Route path="/dashboard" component={DashboardLazy}/>
                         <Route path="/" component={MarketingLazy}/>
                     </Switch>
                 </Suspense>
