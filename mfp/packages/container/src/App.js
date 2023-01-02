@@ -1,6 +1,7 @@
-import React, { lazy, Suspense, useState  } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { lazy, Suspense, useState, useEffect  } from 'react';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
+import { createBrowserHistory } from 'history';
 import Header from './components/Header';
 import Progress from './components/Progress';
 
@@ -25,8 +26,23 @@ const generateClassName = createGenerateClassName({
     productionPrefix: 'co'
 });
 
+const history = createBrowserHistory();
+
 export default () => {
     const [isSignedIn, setIsSignedIn] = useState(false);
+
+    // Will run the lambda function whenever the value of
+    // isSignedIn changes.
+    useEffect(() => {
+        if (isSignedIn) {
+            history.push('/dashboard');
+        // The 'else' part is something we don't want to do so.
+        // The way to handle this case is see dashboard route's
+        // isSignedIn use and <Redirect/>
+        //} else {
+        //    history.push('/');
+        }
+    }, [ isSignedIn ]);
 
     // Note placing <BrowserRouter></BrowserRouter> in
     // (); is very important to prevent you from seeing 
@@ -34,9 +50,14 @@ export default () => {
 
     // '/dashboard' must be inserted before the general
     // '/' to give it a chance to be processed.
+    //
+    // Accessing history in <BrowserRouter> ain't easy.
+    // The way around this is to replace it with generic
+    // <Router> and tell it which history we would like 
+    // to use.
     return (
         <StylesProvider generateClassName={generateClassName}>
-            <BrowserRouter>
+            <Router history={history}>
             <div>
                 <Header onSignOut={() => setIsSignedIn(false)} isSignedIn={isSignedIn}/>
                 <Suspense fallback={<Progress/>}>
@@ -44,12 +65,16 @@ export default () => {
                         <Route path="/auth">
                             <AuthLazy onSignIn={() => setIsSignedIn(true)}/>
                         </Route>
-                        <Route path="/dashboard" component={DashboardLazy}/>
+                        <Route path="/dashboard">
+                            {!isSignedIn && <Redirect to="/"/> }
+                            <DashboardLazy/>
+                            
+                        </Route>
                         <Route path="/" component={MarketingLazy}/>
                     </Switch>
                 </Suspense>
             </div>
-            </BrowserRouter>
+            </Router>
         </StylesProvider>
     );
 };
